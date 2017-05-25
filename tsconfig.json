@@ -1,9 +1,11 @@
 {
     "files": [
-        "src/app.ts"
+        "src/server.ts",
+        "src/public_files/js/app.ts"
     ],
     "compilerOptions": {
         "noImplicitAny": true,
-        "target": "es6"
+        "target": "es5",
+        "module": "commonjs"
     }
 }

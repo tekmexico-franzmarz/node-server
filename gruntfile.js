@@ -22,11 +22,22 @@ module.exports = function (grunt) {
         ts: {
             app: {
                 files: [{
-                    src: ["src/\*\*/\*.ts", "!src/.baseDir.ts"],
+                    src: ["src/\*\*/\*.ts", "!src/.baseDir.ts", "!src/public_files/\*\*/\*.ts"],
                     dest: "./dist"
                 }],
                 options: {
                     experimentalDecorators: true,
+                    module: "commonjs",
+                    target: "es6",
+                    sourceMap: false
+                }
+            },
+            public: {
+                files: [{
+                    src: ["src/public_files/js/\*\*/\*.ts"],
+                    dest: "./dist/public/js"
+                }],
+                options: {
                     module: "commonjs",
                     target: "es6",
                     sourceMap: false
@@ -36,7 +47,11 @@ module.exports = function (grunt) {
         watch: {
             ts: {
                 files: ["src/\*\*/\*.ts"],
-                tasks: ["ts"]
+                tasks: ["ts:app"]
+            },
+            public_ts: {
+                files: ["src/public_files/js/\*\*/\*.ts"],
+                tasks: ["ts:public"]
             },
             views: {
                 files: ["views/**/*.pug"],
@@ -51,7 +66,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask("default", [
         "copy",
-        "ts"
+        "ts:app",
+        "ts:public"
     ]);
 
 };
